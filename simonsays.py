@@ -1,17 +1,23 @@
+import RPi.GPIO as GPIO
 import time
 import random
-colors = ['R', 'G', 'B', 'Y']
+import LEDRGB as LED
 
-def append():
-    n = random.randint(0,3)
-    colors.append(colors[n])
-    color_string = ' ' .join(colors)
-    for i in range(0, len(colors)):
-        print colors[i].lower()
-        time.sleep(1)
+colors = ['R', 'G', 'B', 'Y']
+R_pin = 11
+G_pin = 12
+B_pin = 13
+LED.setup(R_pin, G_pin, B_pin)
+
+def loop():
+    while True:
+        n = random.randint(0,3)
+        LED.setColor(colors[n])
+        time.sleep(0.5)
+
 
 if __name__ == '__main__':
     try:
-        append()
+        loop()
     except KeyboardInterrupt:
-        print 'Goodbye'
+        LED.destroy()
